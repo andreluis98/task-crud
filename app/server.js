@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const app = express();
 
-// Lista de produtos
+
 let lista_produtos = {
   produtos: [
     { id: 1, descricao: "Arroz parboilizado 5Kg", valor: 25.00, marca: "Tio João" },
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
         <a href="/api/produtos">API de Produtos</a>`);
 });
 
-// Obter a lista de produtos
+
 app.get('/api/produtos', (req, res) => {
   let sort = req.query.sort;
   let produtos = lista_produtos.produtos;
@@ -39,7 +39,7 @@ app.get('/api/produtos', (req, res) => {
   res.status(200).json(produtos);
 });
 
-// Obter um produto específico
+
 app.get('/api/produtos/:id', (req, res) => {
   let id = parseInt(req.params.id);
   let produto = lista_produtos.produtos.find(p => p.id === id);
@@ -51,7 +51,7 @@ app.get('/api/produtos/:id', (req, res) => {
   }
 });
 
-// Incluir um produto
+
 app.post('/api/produtos', express.json(), (req, res) => {
   let novoProduto = req.body;
   novoProduto.id = lista_produtos.produtos.length + 1;
@@ -59,7 +59,7 @@ app.post('/api/produtos', express.json(), (req, res) => {
   res.status(201).json(novoProduto);
 });
 
-// Alterar um produto
+
 app.put('/api/produtos/:id', express.json(), (req, res) => {
   let id = parseInt(req.params.id);
   let index = lista_produtos.produtos.findIndex(p => p.id === id);
@@ -72,7 +72,7 @@ app.put('/api/produtos/:id', express.json(), (req, res) => {
   }
 });
 
-// Excluir um produto
+
 app.delete('/api/produtos/:id', (req, res) => {
   let id = parseInt(req.params.id);
   let index = lista_produtos.produtos.findIndex(p => p.id === id);
@@ -85,12 +85,12 @@ app.delete('/api/produtos/:id', (req, res) => {
   }
 });
 
-// Middleware para rota não encontrada
+
 app.use((req, res) => {
   res.status(404).send(`<h2>Erro 404 - Recurso não encontrado</h2>`);
 });
 
-// Configuração para usar variáveis de ambiente
+
 require('dotenv').config();
 
 app.use(cors());
